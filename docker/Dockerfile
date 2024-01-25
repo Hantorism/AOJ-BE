@@ -5,7 +5,6 @@ RUN go mod download -x && \
     CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o /bin/server .
 
 FROM alpine:3.19.0 as run
-ENV BE_PORT=1323
 COPY --from=build /bin/server /bin/
 ENTRYPOINT [ "/bin/server" ]
 EXPOSE 1323
