@@ -11,7 +11,9 @@ networks:
 
 services:
   aoj-back:
-    image: wadevs12/aoj-back
+    build:
+      context: .
+    image: aoj-back
     container_name: aoj-back
     environment:
       BE_PORT: "1323"
@@ -25,7 +27,9 @@ services:
   aoj-front:
     depends_on:
       - aoj-back
-    image: wadevs12/aoj-front
+    build:
+      context: ../AOJ-FE
+    image: aoj-front
     container_name: aoj-front
     environment:
       FE_PORT: "80"
