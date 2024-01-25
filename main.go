@@ -21,5 +21,5 @@ func main() {
 }
 
 func healthCheck(c echo.Context) error {
-	return c.String(http.StatusOK, "Backend Alive")
+	return c.JSON(http.StatusOK, "Backend Alive")
 }
