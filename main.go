@@ -1,10 +1,10 @@
 package main
 
 import (
+	. "AOJ-BE/utils"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"net/http"
-	"os"
 )
 
 func main() {
@@ -13,11 +13,11 @@ func main() {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
-	backPort := os.Getenv("BE_PORT")
+	env := LoadEnv()
 
 	e.GET("/api/health", healthCheck)
 
-	e.Logger.Fatal(e.Start(":" + backPort))
+	e.Logger.Fatal(e.Start(":" + env["backPort"]))
 }
 
 func healthCheck(c echo.Context) error {
