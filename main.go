@@ -17,7 +17,7 @@ func main() {
 
 	e.GET("/api/health", healthCheck)
 
-	e.Logger.Fatal(e.Start(":" + env["backPort"]))
+	e.Logger.Fatal(e.Start(":" + env["BE_PORT"]))
 }
 
 func healthCheck(c echo.Context) error {
