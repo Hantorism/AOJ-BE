@@ -1,6 +1,6 @@
 FROM golang:1.21.6-alpine as build
 WORKDIR /src
-COPY .. .
+COPY . .
 RUN go mod download -x && \
     CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /bin/server .
 
