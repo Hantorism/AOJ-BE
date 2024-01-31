@@ -2,24 +2,29 @@ package main
 
 import (
 	. "AOJ-BE/utils"
-	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
-	"net/http"
+	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/log"
+	"github.com/gofiber/fiber/v2/middleware/healthcheck"
+	"github.com/gofiber/fiber/v2/middleware/logger"
+	"github.com/gofiber/fiber/v2/middleware/recover"
 )
 
 func main() {
-	e := echo.New()
+	app := fiber.New()
 
-	e.Use(middleware.Logger())
-	e.Use(middleware.Recover())
+	app.Use(healthcheck.New())
+	app.Use(logger.New())
+	app.Use(recover.New())
 
 	env := LoadEnv()
 
-	e.GET("/api/health", healthCheck)
+	app.Get("/api/health", healthCheck)
 
-	e.Logger.Fatal(e.Start(":" + env["BE_PORT"]))
+	log.Fatal(app.Listen(":" + env["BE_PORT"]))
 }
 
-func healthCheck(c echo.Context) error {
-	return c.JSON(http.StatusOK, "Backend Alive")
+func healthCheck(c *fiber.Ctx) error {
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"msg": "hello",
+	})
 }
