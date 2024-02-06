@@ -2,29 +2,42 @@ package main
 
 import (
 	. "AOJ-BE/utils"
-	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/log"
-	"github.com/gofiber/fiber/v2/middleware/healthcheck"
-	"github.com/gofiber/fiber/v2/middleware/logger"
-	"github.com/gofiber/fiber/v2/middleware/recover"
+	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
+	"net/http"
 )
 
 func main() {
-	app := fiber.New()
+	//app := fiber.New()
+	//
+	//app.Use(healthcheck.New())
+	//app.Use(logger.New())
+	//app.Use(recover.New())
+	//
+	//env := LoadEnv()
+	//
+	//app.Get("/api/health", healthCheck)
+	//
+	//log.Fatal(app.Listen(":" + env["BE_PORT"]))
 
-	app.Use(healthcheck.New())
-	app.Use(logger.New())
-	app.Use(recover.New())
+	e := echo.New()
+
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
 
 	env := LoadEnv()
 
-	app.Get("/api/health", healthCheck)
+	e.GET("/api/health", healthCheck)
 
-	log.Fatal(app.Listen(":" + env["BE_PORT"]))
+	e.Logger.Fatal(e.Start(":" + env["BE_PORT"]))
 }
 
-func healthCheck(c *fiber.Ctx) error {
-	return c.Status(fiber.StatusOK).JSON(fiber.Map{
-		"msg": "hello",
-	})
+//func healthCheck(c *fiber.Ctx) error {
+//  return c.Status(fiber.StatusOK).JSON(fiber.Map{
+//    "msg": "도커 잘~ 돌아간다",
+//  })
+//}
+
+func healthCheck(c echo.Context) error {
+	return c.JSON(http.StatusOK, "Backend Alive")
 }
