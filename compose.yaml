@@ -16,12 +16,12 @@ services:
     image: aoj-back
     container_name: aoj-back
     environment:
-      BE_PORT: "1323"
+      BE_PORT: "8080"
     networks:
       mybridge:
         ipv4_address: 172.18.0.3
     ports:
-      - "1323:1323"
+      - "8080:8080"
     restart: always
 
   aoj-front:
@@ -34,7 +34,7 @@ services:
     environment:
       FE_PORT: "80"
       BE_HOST: "172.18.0.3"
-      BE_PORT: "1323"
+      BE_PORT: "8080"
     networks:
       mybridge:
         ipv4_address: 172.18.0.2
