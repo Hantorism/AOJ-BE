@@ -1,10 +1,10 @@
 FROM golang:1.22.0-alpine as build
-WORKDIR /src
+WORKDIR /workspace
 COPY . .
 RUN go mod download -x && \
-    CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /bin/server .
+    CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o server .
 
 FROM alpine:3.19.0 as run
-COPY --from=build /bin/server /bin/
-ENTRYPOINT [ "/bin/server" ]
+COPY --from=build /workspace/server /workspace/
+CMD /workspace/server
 EXPOSE 1323
