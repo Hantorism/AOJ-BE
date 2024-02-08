@@ -5,6 +5,7 @@ RUN go mod download -x && \
     CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o server .
 
 FROM alpine:3.19.0 as run
-COPY --from=build /workspace/server /workspace/
-CMD /workspace/server
-EXPOSE 1323
+WORKDIR /workspace
+COPY --from=build /workspace/server .
+CMD ./server
+EXPOSE 8080
