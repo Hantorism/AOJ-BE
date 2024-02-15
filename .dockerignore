@@ -1,5 +1,9 @@
+.dockerignore
 .git
 .gitignore
 .idea
 *.iml
-docker
+Dockerfile
+README.md
+compose.yaml
+server
