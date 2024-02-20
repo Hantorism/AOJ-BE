@@ -39,5 +39,5 @@ services:
       mybridge:
         ipv4_address: 172.18.0.2
     ports:
-      - "81:80"
+      - "80:80"
     restart: always
