@@ -1,4 +1,4 @@
-package apis
+package healthCheck
 
 import "github.com/gofiber/fiber/v2"
 

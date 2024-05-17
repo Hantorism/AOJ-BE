@@ -1,7 +1,7 @@
 package main
 
 import (
-	. "AOJ-BE/src/apis"
+	. "AOJ-BE/src/routes"
 	. "AOJ-BE/src/utils"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/log"
@@ -25,8 +25,7 @@ func main() {
 	ConnectDB()
 	defer DB.Close()
 
-	app.Get("/api/health", HealthCheck)
-	app.Post("/api/signin", Signin)
+	RegisterRoutes(app)
 
 	log.Fatal(app.Listen(":" + ENV["BE_PORT"]))
 }
