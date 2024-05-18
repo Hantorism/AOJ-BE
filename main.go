@@ -20,7 +20,7 @@ func main() {
 	app.Use(cors.New())
 	app.Use(healthcheck.New(HealthCheckConfig))
 
-	LoadENV()
+	LoadEnv()
 
 	ConnectDB()
 	defer DB.Close()

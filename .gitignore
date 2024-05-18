@@ -25,4 +25,4 @@ yarn-error.log*
 .idea
 tmp
 *.iml
-.air.toml
+.env

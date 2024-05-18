@@ -8,6 +8,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/log"
 	"github.com/gofiber/fiber/v2/middleware/healthcheck"
+	"github.com/joho/godotenv"
 )
 
 var (
@@ -26,7 +27,12 @@ var (
 	}
 )
 
-func LoadENV() {
+func LoadEnv() {
+	err := godotenv.Load(".env")
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
 	ENV["BE_PORT"] = os.Getenv("BE_PORT")
 	ENV["DB_HOST"] = os.Getenv("DB_HOST")
 	ENV["DB_PORT"] = os.Getenv("DB_PORT")
